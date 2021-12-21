@@ -12,5 +12,6 @@ func main() {
 		fmt.Println("Caiu no else if")
 	} else {
 		fmt.Println("Caiu no else")
+
 	}
 }
