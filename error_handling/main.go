@@ -16,12 +16,27 @@ func (e ErrorTest) Error() string {
 	)
 }
 
-func main() {
+type TestStruct struct {
+	Code        int    `json:"code"`
+	Name        string `json:"name"`
+	FullName    string `json:"full_name"`
+	Age         int    `json:"age"`
+	Adress      Adress `json:"adress"`
+	PhoneNumber string `json:"phone_number"`
+}
 
+type Adress struct {
+	Street  int    `json:"street"`
+	Number  int    `json:"number"`
+	City    string `json:"city"`
+	State   string `json:"state"`
+	Country string `json:"country"`
+}
+
+func main() {
 	if err := test(); err != nil {
 		fmt.Printf("%#v", err)
 	}
-
 }
 
 func test() *ErrorTest {
