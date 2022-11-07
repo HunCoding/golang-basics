@@ -16,7 +16,8 @@ var table = []struct {
 	{input: 382399},
 }
 
-func BenchmarkPrimeNumbers(b *testing.B) {
+func BenchmarkPrimeNumbersCoding(b *testing.B) {
+	// mock
 	for i := 0; i < b.N; i++ {
 		primeNumbers(num)
 	}
