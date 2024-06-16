@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat App</title>
+    <style>
+        #messages {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            height: 200px;
+            overflow-y: scroll;
+        }
+        #messages li {
+            padding: 8px;
+            border-bottom: 1px solid #ddd;
+        }
+    </style>
+</head>
+<body>
+<ul id="messages"></ul>
+<form id="form">
+    <input id="username" type="text" placeholder="Username" required>
+    <input id="message" type="text" placeholder="Message" required>
+    <button type="submit">Send</button>
+</form>
+<script>
+    const ws = new WebSocket("ws://localhost:8080/ws");
+
+    ws.onmessage = function(event) {
+        const msg = JSON.parse(event.data);
+        const item = document.createElement("li");
+        item.textContent = msg.username + ": " + msg.message;
+        document.getElementById("messages").appendChild(item);
+    };
+
+    document.getElementById("form").onsubmit = function(event) {
+        event.preventDefault();
+        const username = document.getElementById("username").value;
+        const message = document.getElementById("message").value;
+        ws.send(JSON.stringify({ username, message }));
+        document.getElementById("message").value = '';
+    };
+</script>
+</body>
+</html>
